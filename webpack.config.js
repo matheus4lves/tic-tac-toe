@@ -58,11 +58,7 @@ module.exports = {
     useLocalIp: true,
     hot: true,
     open: {
-      app: [
-        "/opt/firefox-84.0b4/firefox/firefox",
-        "-P WebDeveloper",
-        "--private-window",
-      ],
+      app: ["/opt/firefox-84.0b4/firefox/firefox", "--new-window"],
     },
   },
   target: "web",
