@@ -51,9 +51,6 @@ module.exports = {
   mode: "development",
   devtool: "eval-source-map",
   devServer: {
-    before: function (app, server) {
-      server._watch("./app/**/*.html");
-    },
     contentBase: path.join(__dirname, "app"),
     port: 3000,
     historyApiFallback: true,
