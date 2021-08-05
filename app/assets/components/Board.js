@@ -4,14 +4,14 @@ import Square from "./Square";
 class Board extends Component {
   constructor(props) {
     super(props);
-    this.state = { squares: Array(9).fill(null) };
+    this.state = { squares: Array(9).fill(null), xIsNext: true };
   }
 
   handleClick(i) {
     const squares = this.state.squares.slice();
-    squares[i] = "X";
+    squares[i] = this.state.xIsNext ? "X" : "O";
     // "squares:squares" can be replaced by "squares"
-    this.setState({ squares });
+    this.setState({ squares, xIsNext: !this.state.xIsNext });
   }
 
   renderSquare(i) {
@@ -26,7 +26,7 @@ class Board extends Component {
   }
 
   render() {
-    const status = "Next player: X";
+    const status = `Next player: ${this.state.xIsNext ? "X" : "O"}`;
 
     return (
       <div>
