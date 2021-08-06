@@ -58,7 +58,7 @@ module.exports = {
     useLocalIp: true,
     hot: true,
     open: {
-      app: ["/opt/firefox-84.0b4/firefox/firefox", "--new-window"],
+      app: ["google-chrome", "--new-window"],
     },
   },
   target: "web",
