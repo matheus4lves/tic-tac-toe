@@ -13,8 +13,11 @@ class Game extends Component {
   }
 
   handleClick(i) {
+    // All the moves
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
+    // The last move
     const current = history[history.length - 1];
+    // Copy of the last move
     const squares = current.squares.slice();
     // if the square is not "empty" or if there's a winner
     if (squares[i] != null || this.calculateWinner(squares)) {
@@ -22,12 +25,14 @@ class Game extends Component {
     }
     squares[i] = this.state.xIsNext ? "X" : "O";
     // update state
-    // "squares:squares" can be replaced by "squares"
-    this.setState({
-      history: history.concat([{ squares }]),
-      xIsNext: !this.state.xIsNext,
-      stepNumber: history.length,
-    });
+    this.setState(
+      {
+        history: history.concat([{ squares }]),
+        xIsNext: !this.state.xIsNext,
+        stepNumber: history.length,
+      },
+      () => console.log(this.state.history.length)
+    );
   }
 
   calculateWinner(squares) {
