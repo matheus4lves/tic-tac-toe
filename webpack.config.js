@@ -1,65 +1,29 @@
 const path = require("path");
-const postCSSPlugins = [
-  require("postcss-import"),
-  require("postcss-mixins"),
-  require("postcss-simple-vars"),
-  require("postcss-nested"),
-  require("autoprefixer"),
-  require("postcss-preset-env"),
-];
+const { merge } = require("webpack-merge");
+// Can it be solved with tsc include option?
+const parts = require("./webpack.parts.js");
 
-module.exports = {
-  entry: "./app/Main.js",
-  output: {
-    path: path.resolve(__dirname, "app"),
-    filename: "bundle.js",
-  },
-  module: {
-    rules: [
-      {
-        test: /\.css$/,
-        exclude: /node_modules/,
-        use: [
-          "style-loader",
-          "css-loader",
-          {
-            loader: "postcss-loader",
-            options: {
-              postcssOptions: {
-                plugins: postCSSPlugins,
-              },
-            },
-          },
-        ],
-      },
-      {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: "asset/resource",
-      },
-      {
-        test: /\.js$/,
-        exclude: /(node_modules)/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: ["@babel/preset-react", "@babel/preset-env"],
-          },
-        },
-      },
-    ],
-  },
-  mode: "development",
-  devtool: "eval-source-map",
-  devServer: {
-    contentBase: path.join(__dirname, "app"),
-    port: 3000,
-    historyApiFallback: true,
-    host: "0.0.0.0",
-    useLocalIp: true,
-    hot: true,
-    open: {
-      app: ["google-chrome", "--new-window"],
+const commonConfig = merge([
+  {
+    context: path.resolve(__dirname, "app"),
+    entry: "./index.tsx",
+    output: {
+      path: path.resolve(__dirname, "dist"),
+      filename: "bundle.js",
     },
   },
-  target: "web",
+  parts.generateHTML(),
+  parts.loadCSS(),
+  parts.loadImages(),
+  parts.transpileTypeScript(),
+]);
+
+const configs = {
+  development: merge([parts.devServer()]),
+  production: merge([]),
+};
+
+module.exports = (_env, argv) => {
+  const mode = argv.mode;
+  return merge([commonConfig, configs[mode], { mode }]);
 };
