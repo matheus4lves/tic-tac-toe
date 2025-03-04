@@ -1,12 +1,11 @@
 import React from "react";
 
-export default function Square({
-  value,
-  onSquareClick,
-}: {
+interface SquareProps {
   value: string;
-  onSquareClick: () => void;
-}) {
+  onSquareClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+}
+
+export default function Square({ value, onSquareClick }: SquareProps) {
   return (
     <button className="square" onClick={onSquareClick}>
       {value}
