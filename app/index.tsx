@@ -5,7 +5,7 @@ import { createRoot } from "react-dom/client";
 // Styles
 import "./styles.css";
 
-// import Game from "./components/Game";
+import Game from "./components/Game";
 
 // Create root element dynamically
 let rootElement = document.querySelector("#root");
@@ -16,5 +16,4 @@ if (!rootElement) {
 }
 
 const root = createRoot(rootElement);
-// root.render(<Game />);
-root.render(<h1>Is it working?</h1>);
+root.render(<Game />);
