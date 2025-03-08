@@ -1,7 +1,7 @@
 import React from "react";
 
 interface SquareProps {
-  value: string;
+  value: string | null;
   onSquareClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
